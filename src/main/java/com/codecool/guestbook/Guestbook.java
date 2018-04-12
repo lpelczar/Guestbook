@@ -1,76 +1,57 @@
 package com.codecool.guestbook;
 
-import com.codecool.guestbook.utils.MimeTypeResolver;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.jtwig.JtwigModel;
+import org.jtwig.JtwigTemplate;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
-import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class Guestbook implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-        // get file path from url
-        URI uri = httpExchange.getRequestURI();
-        System.out.println("looking for: " + uri.getPath());
-        String path = "." + uri.getPath();
+        String method = httpExchange.getRequestMethod();
 
-        // get file from resources folder, see: https://www.mkyong.com/java/java-read-a-file-from-resources-folder/
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL fileURL = classLoader.getResource(path);
+        if (method.equals("GET")) {
 
-        OutputStream os = httpExchange.getResponseBody();
+            // generate a lucky number
+            int luckyNumber = new Random().nextInt(100);
 
-        if (fileURL == null) {
-            // Object does not exist or is not a file: reject with 404 error.
-            send404(httpExchange);
-        } else {
-            // Object exists and is a file: accept with response code 200.
-            sendFile(httpExchange, fileURL);
+            // create a sample hashmap
+            Map<String, String> usersPass = new HashMap<>();
+            usersPass.put("user", "user");
+            usersPass.put("admin", "admin");
+            usersPass.put("haslo", "maslo");
+
+            // client's address
+            String userAgent = httpExchange.getRequestHeaders().getFirst("User-agent");
+
+            // get a template file
+            JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/template.twig");
+
+            // create a model that will be passed to a template
+            JtwigModel model = JtwigModel.newModel();
+
+            // fill the model with values
+            model.with("client", userAgent);
+            model.with("lucky_number", luckyNumber);
+            model.with("users_pass", usersPass);
+
+            // render a template to a string
+            String response = template.render(model);
+
+            // send the results to a the client
+            httpExchange.sendResponseHeaders(200, response.length());
+            OutputStream os = httpExchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
         }
 
     }
-
-    private void send404(HttpExchange httpExchange) throws IOException {
-        String response = "404 (Not Found)\n";
-        httpExchange.sendResponseHeaders(404, response.length());
-        OutputStream os = httpExchange.getResponseBody();
-        os.write(response.toString().getBytes());
-        os.close();
-    }
-
-    private void sendFile(HttpExchange httpExchange, URL fileURL) throws IOException {
-        // get the file
-        File file = new File(fileURL.getFile());
-
-        System.out.println(file.getAbsolutePath());
-
-        // we need to find out the mime type of the file, see: https://en.wikipedia.org/wiki/Media_type
-        MimeTypeResolver resolver = new MimeTypeResolver(file);
-        String mime = resolver.getMimeType();
-
-        System.out.println(mime);
-
-        httpExchange.getResponseHeaders().set("Content-Type", mime);
-        httpExchange.sendResponseHeaders(200, 0);
-
-        OutputStream os = httpExchange.getResponseBody();
-
-        // send the file
-        FileInputStream fs = new FileInputStream(file);
-        final byte[] buffer = new byte[0x10000];
-        int count = 0;
-        while ((count = fs.read(buffer)) >= 0) {
-            os.write(buffer,0,count);
-        }
-        os.close();
-    }
-
-
 }

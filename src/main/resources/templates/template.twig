@@ -6,13 +6,20 @@
 </head>
 <body>
 
-<header>
-    <div id="title-bar">
-        <h1 id="title-text">Guestbook</h1>
-    </div>
-</header>
+<div id="title-bar">
+    <h1 id="title-text">Guestbook</h1>
+</div>
+
 
 <div class="content">
+
+<h1>Hello {{ client }}</h1>
+<p>Your lucky number is: {{ lucky_number }}</p>
+<ul>
+    {% for key, value in users_pass %}
+        <li>{{ key }} -  {{ value }}</li>
+    {% endfor %}
+</ul>
 
     <h2>Welcome to Guestbook Please leave your note below !</h2>
 
@@ -33,13 +40,11 @@
 
 </div>
 
-<footer>
-    <div id="bottom-bar">
-        <p id="copyright">© 2018 Design & Implementation :
-            <a target="_blank" href="https://www.linkedin.com/in/lukaszpelczar/">Łukasz Pelczar</a>
-        </p>
-    </div>
-</footer>
+
+<div id="bottom-bar">
+    <p id="copyright">2018 Design and Implementation : Lukasz Pelczar</p>
+</div>
+
 
 </body>
 </html>
