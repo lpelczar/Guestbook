@@ -13,7 +13,9 @@ import java.util.*;
 public class Guestbook implements HttpHandler {
 
     private List<Note> notes = new ArrayList<Note>() {{
-        add(new Note("John Doe", "Hello there", LocalDateTime.now().toString()));
+        add(new Note("John Doe",
+                "Hello there",
+                LocalDateTime.now().toString()));
         add(new Note("John Wick",
                 "It is a long established fact that a reader will be " +
                 "distracted by the readable content of a page when looking at its layout.",
