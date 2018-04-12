@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Serif');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display+SC');
+
+html {
+    position: relative;
+    min-height: 100%;
+    font-family: 'IBM Plex Serif', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h2 {
+    text-align: center;
+}
+
+#title-bar {
+    height: 100px;
+    background-color: #2196F3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#bottom-bar {
+    height: 50px;
+    background-color: #2196F3;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    overflow:hidden;
+}
+
+#title-text {
+    font-family: 'IBM Plex Serif', sans-serif;
+    margin-top: 25px;
+    margin-left: 150px;
+    color: whitesmoke;
+    font-size: 35px;
+}
+
+#copyright {
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+#copyright a {
+    text-decoration: none;
+    margin-left: 5px;
+    color: white;
+}
+
+.content {
+    margin: 140px 140px 70px;
+}
+
+#contact-form {
+    font-size: larger;
+    width: 50%;
+    margin: 30px auto;
+}
+
+.input-field {
+    font-size: 20px;
+    text-indent: 3px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+#contact-field-set {
+    border-radius: 5px;
+    padding: 15px 20px 15px 15px;
+}
+
+#submit-button {
+    display: block;
+    margin: 10px auto;
+    font-size: 20px;
+    color: white;
+    border-radius: 3px;
+    border: 0;
+    padding: 6px;
+    background: #2196F3;
+}
