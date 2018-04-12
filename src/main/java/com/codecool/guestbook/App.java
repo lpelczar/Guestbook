@@ -18,7 +18,6 @@ public class App {
         server.createContext("/", new Guestbook());
         server.createContext("/css", new CssHandler());
 
-
         server.setExecutor(null); // creates a default executor
 
         // start listening

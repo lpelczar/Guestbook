@@ -41,7 +41,7 @@ h2 {
 #title-text {
     font-family: 'IBM Plex Serif', sans-serif;
     margin-top: 25px;
-    margin-left: 150px;
+    margin-left: 60px;
     color: whitesmoke;
     font-size: 35px;
 }
@@ -60,13 +60,13 @@ h2 {
 }
 
 .content {
-    margin: 140px 140px 70px;
+    margin: 140px 140px 90px;
 }
 
-#contact-form {
+#note-form {
     font-size: larger;
     width: 50%;
-    margin: 30px auto;
+    margin: 60px auto;;
 }
 
 .input-field {
@@ -86,8 +86,9 @@ textarea {
     height: 100px;
 }
 
-#contact-field-set {
-    border-radius: 5px;
+#note-field-set {
+    border-radius: 10px;
+    border: solid black 4px;
     padding: 15px 20px 15px 15px;
 }
 
@@ -100,4 +101,24 @@ textarea {
     border: 0;
     padding: 6px;
     background: #2196F3;
+}
+
+.note {
+    width: 47%;
+    padding: 1%;
+    margin: 30px auto;
+    border: solid #2196F3 4px;
+    border-radius: 10px;
+}
+
+.label {
+    display: inline-block;
+    font-weight: bold;
+    padding-right: 3px;
+}
+
+.note p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
 }
