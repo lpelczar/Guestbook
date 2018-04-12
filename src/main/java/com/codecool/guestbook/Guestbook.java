@@ -6,6 +6,7 @@ import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
 import java.io.*;
+import java.net.URLDecoder;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -52,6 +53,17 @@ public class Guestbook implements HttpHandler {
     }
 
     private Note parseFormData(String formData) throws UnsupportedEncodingException {
-        return new Note("sd", "sdsds", LocalDateTime.now().toString());
+
+        final int NAME_INDEX = 0;
+        final int MESSAGE_INDEX = 1;
+        final int VALUE_INDEX = 1;
+
+        String[] pairs = formData.split("&");
+        List<String> values = new ArrayList<>();
+        for(String pair : pairs){
+            String[] keyValue = pair.split("=");
+            values.add(URLDecoder.decode(keyValue[VALUE_INDEX], "UTF-8"));
+        }
+        return new Note(values.get(NAME_INDEX), values.get(MESSAGE_INDEX), LocalDateTime.now().toString());
     }
 }
