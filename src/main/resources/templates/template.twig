@@ -20,14 +20,14 @@
         <p id="name">{{ item.getName() }}</p>
         <br>
         <span class="label">Date: </span>
-        <p id="date">{{ item.getName() }}</p>
+        <p id="date">{{ item.getDate() }}</p>
         <br>
         <span class="label">Message: </span>
         <p id="message">{{ item.getMessage() }}</p>
     </div>
     {% endfor %}
 
-    <form id="note-form">
+    <form method="POST" id="note-form">
         <fieldset id="note-field-set">
             <label class="form-label">
                 Name<br>

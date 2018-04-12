@@ -2,12 +2,14 @@ package com.codecool.guestbook;
 
 public class Note {
 
-    public String name;
-    public String message;
+    private String name;
+    private String message;
+    private String date;
 
-    public Note(String name, String message) {
+    Note(String name, String message, String date) {
         this.name = name;
         this.message = message;
+        this.date = date;
     }
 
     public String getName() {
@@ -16,5 +18,9 @@ public class Note {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getDate() {
+        return date;
     }
 }
