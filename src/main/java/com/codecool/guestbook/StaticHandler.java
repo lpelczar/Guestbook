@@ -1,6 +1,7 @@
 package com.codecool.guestbook;
 
 import com.codecool.guestbook.utils.MimeTypeResolver;
+import com.google.common.io.Resources;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -11,16 +12,11 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.net.URL;
 
-public class CssHandler implements HttpHandler {
+public class StaticHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-
-        URI uri = httpExchange.getRequestURI();
-        System.out.println("looking for: " + uri.getPath());
-        String path = "." + uri.getPath();
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL fileURL = classLoader.getResource(path);
+        URL fileURL = Resources.getResource("." + httpExchange.getRequestURI().getPath());
         if (fileURL == null) {
             send404(httpExchange);
         } else {

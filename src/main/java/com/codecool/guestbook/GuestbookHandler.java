@@ -10,7 +10,7 @@ import java.net.URLDecoder;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class Guestbook implements HttpHandler {
+public class GuestbookHandler implements HttpHandler {
 
     private List<Note> notes = new ArrayList<Note>() {{
         add(new Note("John Doe",
