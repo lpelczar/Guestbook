@@ -1,5 +1,6 @@
 package com.codecool.guestbook;
 
+import com.codecool.guestbook.utils.Serializator;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -12,22 +13,19 @@ import java.util.*;
 
 public class GuestbookHandler implements HttpHandler {
 
-    private List<Note> notes = new ArrayList<Note>() {{
-        add(new Note("John Doe",
-                "Hello there",
-                LocalDateTime.now().toString()));
-        add(new Note("John Wick",
-                "It is a long established fact that a reader will be " +
-                "distracted by the readable content of a page when looking at its layout.",
-                LocalDateTime.now().toString()));
-    }};
+    private List<Note> notes = new ArrayList<>() ;
 
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public void handle(HttpExchange httpExchange) throws IOException {
+
+        final String NOTES_PATH = "src/main/resources/notes.ser";
 
         String method = httpExchange.getRequestMethod();
 
         if (method.equals("GET")) {
+            if (new File(NOTES_PATH).exists()) {
+                notes = (List<Note>) Serializator.deserializeObject(NOTES_PATH);
+            }
             getResponse(httpExchange);
         }
 
@@ -37,10 +35,9 @@ public class GuestbookHandler implements HttpHandler {
             String formData = br.readLine();
             System.out.println(formData);
             notes.add(parseFormData(formData));
+            Serializator.serializeObject(notes, NOTES_PATH);
             getResponse(httpExchange);
         }
-
-
     }
 
     private void getResponse(HttpExchange httpExchange) throws IOException {
