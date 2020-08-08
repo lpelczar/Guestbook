@@ -13,7 +13,7 @@ Guestbook using Java HttpServer that stores and display posts by the users.
 
 ## Sample screenshots
 
-![c1](https://raw.github.com/lpelczar/Guestbook/master/guestbook.png)
+![c1](https://raw.github.com/lpelczar/Guestbook/master/screenshot.png)
 
 ## More info
 
